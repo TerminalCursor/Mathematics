@@ -161,19 +161,21 @@ Matrix* matrix_multiply(Matrix* A, Matrix* B) {
 	return null;
 }
 
+// Tr(A^TB)
+// (This implementation A and B must be both n by m)
 double frobenius_inner_product(Matrix* A, Matrix* B) {
 	double inner_product = 0.0f;
-	if(A->n_rows == B->n_columns && A->n_columns == B->n_rows) {
+	if(A->n_rows == B->n_rows && A->n_columns == B->n_columns) {
 		for(int row = 0; row < B->n_rows; row++)
 			for(int column = 0; column < B->n_columns; column++)
-				inner_product += A->data[column][row]*B->data[row][column];
+				inner_product += A->data[row][column]*B->data[row][column];
 	}
 	return inner_product;
 }
 
 Matrix* matrix_normalized(Matrix* matrix) {
 	Matrix* m = clone_matrix(matrix);
-	double scale_factor = 1.0f/square_root(frobenius_inner_product(transpose(m), m));
+	double scale_factor = 1.0f/square_root(frobenius_inner_product(m, m));
 	for(int row = 0; row < m->n_rows; row++) {
 		scale_row(m, row, scale_factor);
 	}
@@ -182,7 +184,7 @@ Matrix* matrix_normalized(Matrix* matrix) {
 
 Matrix* mat_proj_e(Matrix* mat, Matrix* proj_mat) {
 	Matrix* norm_proj_mat = matrix_normalized(proj_mat);
-	double inner_product = frobenius_inner_product(mat, norm_proj_mat);
+	double inner_product = frobenius_inner_product(transpose(mat), norm_proj_mat);
 
 	for(int row = 0; row < norm_proj_mat->n_rows; row++)
 		for(int column = 0; column < norm_proj_mat->n_columns; column++)
@@ -252,5 +254,5 @@ Matrix* cross(Matrix* A, Matrix* B) {
 }
 
 double dot(Matrix* A, Matrix* B) {
-	return frobenius_inner_product(transpose(A), B);
+	return frobenius_inner_product(A, B);
 }
