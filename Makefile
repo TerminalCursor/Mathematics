@@ -25,6 +25,3 @@ clean:
 	rm -rf Math/*.o Math/Crypto/*.o
 
 .PHONY: clean
-
-#backup: os-image.bin
-#	cp -r ./ ../backups_LogOS.d
