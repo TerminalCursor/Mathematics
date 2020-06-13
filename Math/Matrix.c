@@ -184,7 +184,7 @@ Matrix* matrix_normalized(Matrix* matrix) {
 
 Matrix* mat_proj_e(Matrix* mat, Matrix* proj_mat) {
 	Matrix* norm_proj_mat = matrix_normalized(proj_mat);
-	double inner_product = frobenius_inner_product(transpose(mat), norm_proj_mat);
+	double inner_product = frobenius_inner_product(mat, norm_proj_mat);
 
 	for(int row = 0; row < norm_proj_mat->n_rows; row++)
 		for(int column = 0; column < norm_proj_mat->n_columns; column++)
