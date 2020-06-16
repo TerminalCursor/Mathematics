@@ -1,7 +1,6 @@
 # $@ = target file
 # $< = first dependency
 # $^ = all dependencies
-#
 
 C_SOURCES = $(wildcard Math/*.c Math/Crypto/*.c *.c)
 HEADERS = $(wildcard Math/*.h Math/Crypto/*.h *.c)
