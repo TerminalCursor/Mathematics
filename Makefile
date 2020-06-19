@@ -19,8 +19,7 @@ build: ${OBJ}
 %.o: %.c ${HEADERS}
 	${CC} -c $< -o $@
 
+.PHONY: clean
 clean:
 	rm -rf *.o build
 	rm -rf Math/*.o Math/Crypto/*.o
-
-.PHONY: clean
